@@ -2,7 +2,9 @@
 
 A modern calculator application built with React, using Clean Architecture and VIPER architecture patterns.
 
-![Calculator Preview](./calculator-preview.png)
+![Calculator Dark Mode](./calculator-preview.png)
+
+![Calculator Light Mode](./calculator-light.png)
 
 ## Table of Contents
 
