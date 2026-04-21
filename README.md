@@ -1,6 +1,8 @@
 # AI-Calculator
 
-A modern calculator application built with React and TypeScript, using Clean Architecture and VIPER architecture patterns.
+A modern calculator application built with React, using Clean Architecture and VIPER architecture patterns.
+
+![Calculator Preview](./calculator-preview.png)
 
 ## Table of Contents
 
@@ -35,34 +37,11 @@ VIPER is a Clean Architecture implementation with 5 layers:
 - Communicates with Presenter
 - Handles user events
 
-```typescript
-// Example: calculator.view.tsx
-export const CalculatorView: React.FC<ICalculatorViewProps> = ({ presenter }) => {
-  const [display, setDisplay] = useState('0');
-
-  const handleDigit = (digit: string) => {
-    presenter.onDigit(digit);
-  };
-
-  return (/* JSX */);
-};
-```
-
 ### I - Interactor
 - Pure business logic
 - No UI knowledge
 - Handles use cases
-- API consumption only
-
-```typescript
-// Example: calculator.interactor.ts
-export class CalculatorInteractor implements ICalculatorInteractor {
-  public evaluate(expression: string): number {
-    // Pure calculation logic
-    return evaluateExpression(expression);
-  }
-}
-```
+- Mathematical operations
 
 ### P - Presenter
 - Coordinates View and Interactor
@@ -70,28 +49,9 @@ export class CalculatorInteractor implements ICalculatorInteractor {
 - Handles UI events
 - Contains presentation logic
 
-```typescript
-// Example: calculator.presenter.ts
-export class CalculatorPresenter implements ICalculatorPresenter {
-  public onDigit(digit: string): void {
-    // Update display logic
-    this.view.setDisplay(this.view.display + digit);
-  }
-}
-```
-
 ### E - Entity
 - Data models
 - Domain objects
-
-```typescript
-// Example: calculator.types.ts
-export interface CalculationResult {
-  expression: string;
-  result: number;
-  timestamp: Date;
-}
-```
 
 ### R - Router
 - Navigation between screens
@@ -103,57 +63,36 @@ export interface CalculationResult {
 
 ```
 src/
-├── app/
-│   ├── App.tsx                    # Root component
-│   ├── main.tsx                  # Entry point
-│   └── index.css                 # Global styles
-│
-├── domain/                       # Domain layer (Entities)
-│   ├── entities/                 # Core data models
-│   │   └── calculation.entity.ts
-│   └── types/                    # Type definitions
-│
-├── application/                  # Application layer
-│   ├── interfaces/               # Contracts
-│   │   └── calculator.interface.ts
-│   └── services/                 # API services
-│
-├── core/                         # Core functionality
-│   ├── constants/                # App constants
-│   ├── utils/                    # Utility functions
-│   └── pipes/                    # Custom pipes
-│
-├── presentation/                 # UI layer (VIPER)
-│   ├── calculator/               # Calculator module
-│   │   ├── view/                 # V - View components
-│   │   ├── interactor/           # I - Business logic
-│   │   ├── presenter/            # P - Coordinator
-│   │   ├── entity/               # E - Models
-│   │   └── router/               # R - Navigation
-│   └── shared/                   # Shared UI components
-│
-└── common/                       # Common utilities
-    └── utils/                    # Helper functions
+├── presentation/calculator/
+│   ├── view/
+│   │   ├── CalculatorView.jsx    # Main container
+│   │   ├── Display.jsx           # Result display
+│   │   ├── Button.jsx           # Individual button
+│   │   ├── ButtonGrid.jsx       # Button layout
+│   │   ├── Header.jsx           # Header with theme toggle
+│   │   └── ThemeToggle.jsx      # Light/dark mode toggle
+│   ├── interactor/
+│   │   └── CalculatorInteractor.js  # Math operations
+│   └── presenter/
+│       └── CalculatorPresenter.js    # State coordination
+├── core/constants/
+│   └── calculator.constants.js   # Colors, buttons, themes
+└── domain/entities/
+    └── calculation.entity.js    # Data models
 ```
 
 ---
 
-## Data Flow
+## Features
 
-### 1. User Input
-```
-User Click → View → Presenter.onDigit() → Interactor.evaluate()
-```
-
-### 2. Display Update
-```
-Interactor Result → Presenter → View.setDisplay()
-```
-
-### 3. Error Handling
-```
-Error → Interactor → Presenter.handleError() → View.showError()
-```
+- **Arithmetic Operations**: Addition, subtraction, multiplication, division
+- **Operation Chaining**: Multiple operations in sequence (e.g., 5 + 3 − 2)
+- **Percentage**: Calculate percentages (%)
+- **Sign Toggle**: Change positive/negative (+/-)
+- **Clear All**: Reset calculator (AC)
+- **Error Handling**: Division by zero displays "Error"
+- **Light/Dark Mode**: Toggle between themes with sun/moon icons
+- **Animated Cursor**: Blinking underscore cursor in display
 
 ---
 
@@ -176,7 +115,8 @@ npm run build
 ## Tech Stack
 
 - **React** — UI Library
-- **TypeScript** — Language
-- **Vite** — Build tool
+- **JavaScript** — Language
+- **Create React App** — Build tool
+- **Tailwind CSS** — Styling
 - **VIPER** — Architecture pattern
 - **Clean Architecture** — Design principles
