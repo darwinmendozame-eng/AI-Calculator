@@ -8,7 +8,10 @@ export class CalculatorInteractor {
       case '×':
         return a * b;
       case '÷':
-        return b !== 0 ? a / b : 0;
+        if (b === 0) {
+          return 'Error';
+        }
+        return a / b;
       default:
         return b;
     }
